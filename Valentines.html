@@ -14,10 +14,8 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #ffc0cb 0%, #ffb6c1 100%);
+            background-attachment: fixed;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             overflow-x: hidden;
             overflow-y: auto;
             position: relative;
@@ -56,6 +54,8 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
             text-align: center;
             max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
             position: relative;
             z-index: 10;
             animation: fadeIn 0.8s ease-in;
@@ -314,4 +314,3 @@
     </script>
 </body>
 </html>
-
