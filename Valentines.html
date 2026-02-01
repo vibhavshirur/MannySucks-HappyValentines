@@ -193,6 +193,25 @@
             font-size: 2.5em;
             color: #d81b60;
         }
+
+        .whatsapp-link {
+            margin-top: 25px;
+            font-size: 1.1em;
+            color: #666;
+        }
+
+        .whatsapp-link a {
+            color: #25D366;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        .whatsapp-link a:hover {
+            color: #128C7E;
+            border-bottom: 2px solid #128C7E;
+        }
     </style>
 </head>
 <body>
@@ -214,6 +233,7 @@
         
         <div class="message" id="message"></div>
         <div id="extraContent"></div>
+        <div id="whatsappLink"></div>
     </div>
 
     <script>
@@ -225,8 +245,8 @@
                 rose.className = 'rose';
                 rose.textContent = roseEmojis[Math.floor(Math.random() * roseEmojis.length)];
                 rose.style.left = Math.random() * 100 + '%';
-                rose.style.animationDuration = (Math.random() * 10 + 5) + 's';
-                rose.style.animationDelay = Math.random() * 10 + 's';
+                rose.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                rose.style.animationDelay = Math.random() * 5 + 's';
                 rose.style.top = '-200px';
                 document.body.appendChild(rose);
             }
@@ -244,6 +264,10 @@
             const messageDiv = document.getElementById('message');
             const extraContent = document.getElementById('extraContent');
             const mainPhoto = document.getElementById('mainPhoto');
+            const whatsappLink = document.getElementById('whatsappLink');
+            
+            // Hide WhatsApp link when clicking no
+            whatsappLink.innerHTML = '';
             
             // Change to couple photo after first interaction
             if (noClickCount === 1) {
@@ -280,6 +304,7 @@
             const extraContent = document.getElementById('extraContent');
             const buttonContainer = document.getElementById('buttonContainer');
             const mainPhoto = document.getElementById('mainPhoto');
+            const whatsappLink = document.getElementById('whatsappLink');
             
             // Change to couple photo on first yes
             if (yesClickCount === 1 && noClickCount === 0) {
@@ -292,6 +317,7 @@
                 firstYesClicked = true;
                 messageDiv.textContent = 'Wait...there\'s easter eggs if you click no.... 👀';
                 extraContent.innerHTML = '';
+                whatsappLink.innerHTML = '';
                 easterEggRevealed = true;
                 // Keep buttons visible for second chance
             } else if (firstYesClicked && yesClickCount === 2 && noClickCount === 0) {
@@ -305,6 +331,7 @@
                 `;
                 extraContent.innerHTML = '';
                 buttonContainer.style.display = 'none';
+                whatsappLink.innerHTML = '<div class="whatsapp-link"><a href="https://wa.me/919677017600" target="_blank">Let him know the good news ;)</a></div>';
             } else {
                 // Any other yes click (after clicking no at least once)
                 mainPhoto.src = 'couple-photo.jpg';
@@ -312,9 +339,9 @@
                 messageDiv.innerHTML = '<div class="final-message">I LOVE YOU BOOBY BABY 💖💕❤️</div>';
                 extraContent.innerHTML = '';
                 buttonContainer.style.display = 'none';
+                whatsappLink.innerHTML = '<div class="whatsapp-link"><a href="https://wa.me/919677017600" target="_blank">Let him know the good news ;)</a></div>';
             }
         }
     </script>
 </body>
 </html>
-
