@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day! 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffc0cb 0%, #ffb6c1 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Falling roses animation */
+        .rose {
+            position: absolute;
+            font-size: 30px;
+            opacity: 0.7;
+            filter: blur(1px);
+            animation: fall linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        /* Main container */
+        .container {
+            background: white;
+            padding: 60px 50px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 600px;
+            position: relative;
+            z-index: 10;
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .photo-container {
+            margin-bottom: 30px;
+        }
+
+        .photo-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+            border: 5px solid #ff69b4;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
+            max-height: 400px;
+            object-fit: cover;
+        }
+
+        h1 {
+            color: #e91e63;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(233, 30, 99, 0.2);
+        }
+
+        .question {
+            font-size: 1.8em;
+            color: #d81b60;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.3em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .yes-btn {
+            background: linear-gradient(135deg, #e91e63 0%, #f06292 100%);
+            color: white;
+        }
+
+        .yes-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(233, 30, 99, 0.4);
+        }
+
+        .no-btn {
+            background: linear-gradient(135deg, #5c9eff 0%, #7db3ff 100%);
+            color: white;
+        }
+
+        .no-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(92, 158, 255, 0.4);
+        }
+
+        .message {
+            font-size: 1.4em;
+            color: #c2185b;
+            margin-top: 20px;
+            min-height: 40px;
+            font-weight: 500;
+        }
+
+        .subtle-text {
+            color: #999;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        .ascii-art {
+            font-family: monospace;
+            white-space: pre;
+            line-height: 1.2;
+            font-size: 0.7em;
+            color: #666;
+            margin: 15px 0;
+        }
+
+        .mad-photo {
+            margin: 20px 0;
+            max-width: 250px;
+            border-radius: 15px;
+            border: 3px solid #e91e63;
+        }
+
+        .final-message {
+            font-size: 2em;
+            color: #e91e63;
+            font-weight: bold;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .bold-text {
+            font-weight: bold;
+            font-size: 2.5em;
+            color: #d81b60;
+        }
+    </style>
+</head>
+<body>
+    <!-- Falling roses will be added here by JavaScript -->
+
+    <div class="container">
+        <div class="photo-container">
+            <img src="rose-photo.jpg" alt="Me with a rose for you" id="mainPhoto">
+        </div>
+        
+        <h1>💕 Happy Valentine's Day! 💕</h1>
+        
+        <div class="question" id="question">Will you be my Valentine?</div>
+        
+        <div class="buttons" id="buttonContainer">
+            <button class="yes-btn" onclick="handleYes()">Yes! 💖</button>
+            <button class="no-btn" onclick="handleNo()">No</button>
+        </div>
+        
+        <div class="message" id="message"></div>
+        <div id="extraContent"></div>
+    </div>
+
+    <script>
+        // Create falling roses
+        function createRoses() {
+            const roseEmojis = ['🌹', '🌹', '💕', '❤️', '💖'];
+            for (let i = 0; i < 25; i++) {
+                const rose = document.createElement('div');
+                rose.className = 'rose';
+                rose.textContent = roseEmojis[Math.floor(Math.random() * roseEmojis.length)];
+                rose.style.left = Math.random() * 100 + '%';
+                rose.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                rose.style.animationDelay = Math.random() * 5 + 's';
+                document.body.appendChild(rose);
+            }
+        }
+
+        createRoses();
+
+        let noClickCount = 0;
+        let yesClickCount = 0;
+        let firstYesClicked = false;
+        let easterEggRevealed = false;
+
+        function handleNo() {
+            noClickCount++;
+            const messageDiv = document.getElementById('message');
+            const extraContent = document.getElementById('extraContent');
+            const mainPhoto = document.getElementById('mainPhoto');
+            
+            // Change to couple photo after first interaction
+            if (noClickCount === 1) {
+                mainPhoto.src = 'couple-photo.jpg';
+                mainPhoto.alt = 'Us together';
+            }
+            
+            if (noClickCount === 1) {
+                messageDiv.textContent = 'Pretty please? 🥺';
+                extraContent.innerHTML = '';
+            } else if (noClickCount === 2) {
+                messageDiv.textContent = 'Pretty please? 🥺';
+                extraContent.innerHTML = '<div class="subtle-text">(I won\'t stop asking)</div>';
+            } else if (noClickCount === 3 || noClickCount === 4) {
+                messageDiv.textContent = 'Pretty please? 🥺';
+                extraContent.innerHTML = '<div class="subtle-text">(Are you sure?)</div>';
+            } else if (noClickCount === 5 || noClickCount === 6) {
+                messageDiv.textContent = 'Pretty please? 🥺';
+                extraContent.innerHTML = `
+                    <div class="subtle-text">(Are you absolutely sure...?)</div>
+                    <div class="ascii-art">
+    (⁠╥⁠﹏⁠╥⁠)
+                    </div>
+                `;
+            } else if (noClickCount >= 7) {
+                messageDiv.innerHTML = '<div class="bold-text">FINE</div>';
+                extraContent.innerHTML = '<img src="mad-photo.jpg" alt="Me mad" class="mad-photo">';
+            }
+        }
+
+        function handleYes() {
+            yesClickCount++;
+            const messageDiv = document.getElementById('message');
+            const extraContent = document.getElementById('extraContent');
+            const buttonContainer = document.getElementById('buttonContainer');
+            const mainPhoto = document.getElementById('mainPhoto');
+            
+            // Change to couple photo on first yes
+            if (yesClickCount === 1 && noClickCount === 0) {
+                mainPhoto.src = 'couple-photo.jpg';
+                mainPhoto.alt = 'Us together';
+            }
+            
+            if (yesClickCount === 1 && noClickCount === 0) {
+                // First yes clicked immediately
+                firstYesClicked = true;
+                messageDiv.textContent = 'Wait...there\'s easter eggs if you click no.... 👀';
+                extraContent.innerHTML = '';
+                easterEggRevealed = true;
+                // Keep buttons visible for second chance
+            } else if (firstYesClicked && yesClickCount === 2 && noClickCount === 0) {
+                // Second yes after easter egg reveal
+                messageDiv.innerHTML = `
+                    <div class="final-message">Wow...</div>
+                    <div class="ascii-art">
+    (ಥ﹏ಥ)
+                    </div>
+                    <div class="final-message">You're the best wifey ever 💕</div>
+                `;
+                extraContent.innerHTML = '';
+                buttonContainer.style.display = 'none';
+            } else {
+                // Any other yes click (after clicking no at least once)
+                mainPhoto.src = 'couple-photo.jpg';
+                mainPhoto.alt = 'Us together';
+                messageDiv.innerHTML = '<div class="final-message">I LOVE YOU BOOBY BABY 💖💕❤️</div>';
+                extraContent.innerHTML = '';
+                buttonContainer.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
